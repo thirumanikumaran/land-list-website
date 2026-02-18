@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Land</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-5 text-white" style="background:#0B1120">
+
+<h2 class="mb-4">Sell Your Land</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input name="owner_name" placeholder="Owner Name" required>
+    <input name="owner_phone" placeholder="Mobile Number" required>
+    <input class="form-control mb-3" name="title" placeholder="Land Title" required>
+    <input type="number" class="form-control mb-3" name="price" placeholder="Price" required>
+    <input type="number" class="form-control mb-3" name="area" placeholder="Area (sqft)" required>
+    <input class="form-control mb-2" name="image1" placeholder="Image 1 URL" required>
+    <input class="form-control mb-2" name="image2" placeholder="Image 2 URL">
+    <input class="form-control mb-2" name="image3" placeholder="Image 3 URL">
+    <input class="form-control mb-2" name="image4" placeholder="Image 4 URL">
+    <input class="form-control mb-2" name="image5" placeholder="Image 5 URL">
+
+    <input class="form-control mb-3" name="lat" placeholder="Latitude">
+    <input class="form-control mb-3" name="lon" placeholder="Longitude">
+
+    <textarea name="description" placeholder="Land description"></textarea>
+
+    <button class="btn btn-warning w-100 fw-bold">POST LAND</button>
+</form>
+
+</body>
+</html>

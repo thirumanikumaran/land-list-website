@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ land.title }}</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+body{background:#0B1120;color:white}
+#map{height:300px;border-radius:15px}
+</style>
+</head>
+
+<body class="container py-4">
+
+<h2 class="fw-bold mb-3">{{ land.title }}</h2>
+
+<!-- IMAGE CAROUSEL -->
+<div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
+  <div class="carousel-inner">
+
+    <div class="carousel-item active">
+      <img src="{{ land.image1 }}" class="d-block w-100 rounded-4">
+    </div>
+
+    {% if land.image2 %}
+    <div class="carousel-item">
+      <img src="{{ land.image2 }}" class="d-block w-100 rounded-4">
+    </div>
+    {% endif %}
+
+    {% if land.image3 %}
+    <div class="carousel-item">
+      <img src="{{ land.image3 }}" class="d-block w-100 rounded-4">
+    </div>
+    {% endif %}
+
+    {% if land.image4 %}
+    <div class="carousel-item">
+      <img src="{{ land.image4 }}" class="d-block w-100 rounded-4">
+    </div>
+    {% endif %}
+
+    {% if land.image5 %}
+    <div class="carousel-item">
+      <img src="{{ land.image5 }}" class="d-block w-100 rounded-4">
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<!-- PRICE & BASIC INFO -->
+<h3 style="color:#C5A059">₹{{ land.price }}</h3>
+<p>Area: {{ land.area_sqft }} sqft</p>
+
+<p><b>Owner:</b> {{ land.owner_name }}</p>
+<p><b>Phone:</b> {{ land.owner_phone }}</p>
+<p>{{ land.description }}</p>
+
+<!-- ADD TO CART -->
+<form method="POST" action="{% url 'add_to_cart' land.id %}">
+    {% csrf_token %}
+    <button class="btn btn-warning w-100 fw-bold mb-4">
+        ADD TO CART
+    </button>
+</form>
+
+<!-- MAP -->
+<h5>Location</h5>
+<div id="map"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+var map = L.map('map').setView([{{ land.latitude }}, {{ land.longitude }}], 15);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.marker([{{ land.latitude }}, {{ land.longitude }}]).addTo(map);
+</script>
+
+</body>
+</html>
