@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'land_app',  # Idhai inga add panni Ctrl+S kuduthu save pannunga
+    'land_app',  
 ]
 
 MIDDLEWARE = [
