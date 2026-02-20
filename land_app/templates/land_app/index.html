@@ -4,6 +4,7 @@
     <title>land-listing-platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     <style>
         body { background-color: #0B1120; color: white; }
         #map { height: 450px; border-radius: 20px; border: 3px solid #C5A059; margin-bottom: 30px; }
@@ -12,10 +13,14 @@
         .btn-gold { background: #C5A059; color: black; font-weight: bold; width: 100%; }
     </style>
 </head>
-<body class="container py-4">
-    <h2 class="fw-bold mb-4">NAMMA <span style="color:#C5A059">LAND STORE</span></h2>
 
-    <nav class="navbar navbar-dark bg-dark mb-4 rounded shadow">
+<body class="container py-4">
+
+<h2 class="fw-bold mb-4">
+    NAMMA <span style="color:#C5A059">LAND STORE</span>
+</h2>
+
+<nav class="navbar navbar-dark bg-dark mb-4 rounded shadow">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="#">NAMMA LAND</a>
 
@@ -27,44 +32,64 @@
     <a href="{% url 'cart' %}" class="btn btn-outline-warning ms-3">
       🛒 Cart
     </a>
-
   </div>
 </nav>
 
-
-
 <div class="mb-4">
-    <a href="{% url 'post_land' %}" class="btn btn-gold py-3 fw-bold shadow-lg text-center" style="display: block; font-size: 1.2rem; border-radius: 10px;">
+    <a href="{% url 'post_land' %}" 
+       class="btn btn-gold py-3 fw-bold shadow-lg text-center" 
+       style="display: block; font-size: 1.2rem; border-radius: 10px;">
         + SELL YOUR LAND
     </a>
 </div>
-    
-    <div id="map"></div> <div class="row">
-        {% for land in lands %}
-        <div class="col-md-4">
-            <div class="land-card shadow-lg">
-                <img src="{{ land.image_url }}" class="land-img" onerror="this.src='https://via.placeholder.com/400x200'">
-                <div class="p-3">
-                    <h5 class="fw-bold">₹{{ land.price }}</h5>
-                    <p>{{ land.title }}</p>
-                    <a href="{% url 'land_detail' land.id %}" class="btn btn-gold text-center pt-2">EXPLORE</a>
-                </div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<!-- LAND CARDS -->
+<div class="row">
+    {% for land in lands %}
+    <div class="col-md-4">
+        <div class="land-card shadow-lg">
+
+            {% if land.image1 %}
+                <img src="{{ land.image1.url }}" class="land-img">
+            {% else %}
+                <img src="https://via.placeholder.com/400x200" class="land-img">
+            {% endif %}
+
+            <div class="p-3">
+                <h5 class="fw-bold">₹{{ land.price }}</h5>
+                <p>{{ land.title }}</p>
+
+                <a href="{% url 'land_detail' land.id %}" 
+                   class="btn btn-gold text-center pt-2">
+                   EXPLORE
+                </a>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% empty %}
+        <p>No lands available.</p>
+    {% endfor %}
+</div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([10.7870, 78.7047], 7);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-        {% for land in lands %}
-            {% if land.latitude and land.longitude %}
-                L.marker([{{ land.latitude }}, {{ land.longitude }}]).addTo(map)
-                    .bindPopup("<b>{{ land.title }}</b><br>₹{{ land.price }}");
-            {% endif %}
-        {% endfor %}
-    </script>
+<script>
+    var map = L.map('map').setView([10.7870, 78.7047], 7);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        .addTo(map);
+
+    {% for land in lands %}
+        {% if land.latitude and land.longitude %}
+            L.marker([{{ land.latitude }}, {{ land.longitude }}])
+                .addTo(map)
+                .bindPopup("<b>{{ land.title }}</b><br>₹{{ land.price }}");
+        {% endif %}
+    {% endfor %}
+</script>
+
 </body>
 </html>

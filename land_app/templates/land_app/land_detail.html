@@ -18,35 +18,46 @@ body{background:#0B1120;color:white}
 <div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
   <div class="carousel-inner">
 
+    {% if land.image1 %}
     <div class="carousel-item active">
-      <img src="{{ land.image1 }}" class="d-block w-100 rounded-4">
+      <img src="{{ land.image1.url }}" class="d-block w-100 rounded-4">
     </div>
+    {% endif %}
 
     {% if land.image2 %}
     <div class="carousel-item">
-      <img src="{{ land.image2 }}" class="d-block w-100 rounded-4">
+      <img src="{{ land.image2.url }}" class="d-block w-100 rounded-4">
     </div>
     {% endif %}
 
     {% if land.image3 %}
     <div class="carousel-item">
-      <img src="{{ land.image3 }}" class="d-block w-100 rounded-4">
+      <img src="{{ land.image3.url }}" class="d-block w-100 rounded-4">
     </div>
     {% endif %}
 
     {% if land.image4 %}
     <div class="carousel-item">
-      <img src="{{ land.image4 }}" class="d-block w-100 rounded-4">
+      <img src="{{ land.image4.url }}" class="d-block w-100 rounded-4">
     </div>
     {% endif %}
 
     {% if land.image5 %}
     <div class="carousel-item">
-      <img src="{{ land.image5 }}" class="d-block w-100 rounded-4">
+      <img src="{{ land.image5.url }}" class="d-block w-100 rounded-4">
     </div>
     {% endif %}
 
   </div>
+
+  <!-- Carousel Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+
 </div>
 
 <!-- PRICE & BASIC INFO -->
